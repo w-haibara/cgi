@@ -1,6 +1,12 @@
 export function Exec(target: string, params: string): string {
-  console.log(target);
-  console.log(params);
+  switch (target) {
+    case "echo":
+      return echoHandler(params);
+  }
 
-  return "";
+  throw new Error("Unknown target: " + target);
+}
+
+function echoHandler(params: string): string {
+  return params;
 }
