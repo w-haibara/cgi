@@ -4,16 +4,12 @@ import { Exec } from "./cgi";
 
 const app = new Hono();
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
-});
-
-app.post("/cgi/:target", async (c) => {
+app.post("/:target", async (c) => {
   const target = c.req.param("target");
   const params = await c.req.text();
 
   try {
-    const res = Exec(target, params);
+    const res = Exec(c, target, params);
 
     return c.text(res);
   } catch {
